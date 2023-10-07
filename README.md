@@ -28,6 +28,9 @@ To build the web app, run the following command
 ```sh
 #make sure you are in the directory of the project!!!
 npm install
+npm install axios
+npm install -D tailwindcss
+npx tailwindcss init
 npm run dev
 ##click on the little localhost that pops up or go to that link in your browser
 ```

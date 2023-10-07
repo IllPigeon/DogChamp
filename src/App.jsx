@@ -1,40 +1,88 @@
-import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import Header from './Header';
+import axios from 'axios';
+import CardList from './CardList';
 
-const dogURL = 'https://dog.ceo/api/breeds/list/all'
-function App() {
-  const [count, setCount] = useState(0)
-  const [dogs, setDogs] = useState([])
+const App = () => {
+  const [breeds, setBreeds] = useState([]);
+  const [images, setImages] = useState({});
+  const [query, setQuery] = useState('');
+  const [filteredBreeds, setFilteredBreeds] = useState([]);
 
-  const fetch = useEffect(() => {
-    return fetch(dogURL).then((response => response.json()))
-  })
+  const onChange = (event) => {
+    setQuery(event.target.value);
+  }
+
+  const addFilter = (filteredBreed) => {
+    console.log("breed filtered")
+  }
+
+  const clearFilters = () => {
+    console.log("filters cleared")
+  }
+
+  useEffect(() => {
+    // Fetch list of dog breeds
+    //ADD DARK MODE TOGGLE
+    axios.get('https://dog.ceo/api/breeds/list/all')
+      .then(response => {
+        const breedList = Object.keys(response.data.message);
+        // console.log(response.data.message.bulldog);
+        setBreeds(breedList);
+        const imageRequests = breedList.map(breed =>
+          axios.get(`https://dog.ceo/api/breed/${breed}/images/random/10`)
+            .then(imageResponse => imageResponse.data.message)
+            .catch(error => {
+              console.error(`Error fetching images for ${breed}:`, error);
+              return [];
+            })
+        );
+
+        // Resolve all image requests
+        Promise.all(imageRequests)
+          .then(imagesData => {
+            const imagesMap = {};
+            breedList.forEach((breed, index) => {
+              imagesMap[breed] = imagesData[index];
+            });
+            setImages(imagesMap);
+          })
+          .catch(error => {
+            console.error('Error fetching breed images:', error);
+          });
+      })
+      .catch(error => {
+        console.error('Error fetching breeds:', error);
+      });
+  }, []);
+
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <Header/>
+    </div>
+    <div className="filter-area">
+      <h2>
+        Add Breed Filter!
+      </h2>
+      <div className="search-area">
+        <div className="search-box"></div>
+          <input text="Search" value={query} onChange={onChange}/>
+          <button onClick={()=>addFilter(query)}>Add Filter</button>
+        </div>
+        <div className="drop-down">
+
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="filter-pills">
+        <button onClick={()=>clearFilters(filteredBreeds)}>Clear Filters</button>
+        <p>Active Filters Pills</p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div>
+      <CardList dogs={breeds} dog_images={images}/>      
+    </div>
     </>
-  )
-}
+  );
+};
 
 export default App
