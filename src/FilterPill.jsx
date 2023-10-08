@@ -8,10 +8,8 @@ const FilterPill = ({ breed, handleRemove }) => {
     };
 
     return (
-    <div className="filtered-pill">
-        <button className="delete-button" onClick={() => handleRemoveClick()}>
-            {breed} X
-        </button>
+    <div className="filtered-pill" onClick={() => handleRemoveClick()}>
+        {breed.toUpperCase()} X
     </div>
     );
 };

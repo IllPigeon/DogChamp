@@ -6,21 +6,26 @@ import FilterPill from './FilterPill';
 
 
 const App = () => {
+  // STUFF ID LIKE TODO: MAKE HEADER/SEARCHBAR/FILTERS FOLLOW SCROLL
+  //states for storing the breeds, filtered breed images, filter query, etc.
   const [breeds, setBreeds] = useState([]);
   const [images, setImages] = useState({});
   const [query, setQuery] = useState('');
   const [filteredBreeds, setFilteredBreeds] = useState([]);
   const [activeFilters, setActiveFilters] = useState([]);
 
+  //on change for the filter search bar
   const onChange = (event) => {
     setQuery(event.target.value);
   }
 
+  //button add valid filter from the search bar
   const addFilter = (filteredBreed) => {
-    if (breeds.includes(filteredBreed) && !activeFilters.includes(filteredBreed)) {
-      setActiveFilters([...activeFilters, filteredBreed]);
+    if (breeds.includes(filteredBreed.toLowerCase()) && !activeFilters.includes(filteredBreed.toLowerCase())) {
+      setActiveFilters([...activeFilters, filteredBreed.toLowerCase()]);
       setFilteredBreeds(filterBreed(breeds));
     }
+    setQuery('');
   };
 
   const handleRemoveFilter = (breedToRemove) => {
@@ -37,13 +42,11 @@ const App = () => {
 
   //fetching all dog breeds from dog API
   useEffect(() => {
-    // Fetch list of dog breeds
-    //ADD DARK MODE TOGGLE
     axios.get('https://dog.ceo/api/breeds/list/all')
       .then(response => {
         const breedList = Object.keys(response.data.message);
-        // console.log(response.data.message.bulldog);
         setBreeds(breedList);
+        setFilteredBreeds(breedList);
         const imageRequests = breedList.map(breed =>
           axios.get(`https://dog.ceo/api/breed/${breed}/images/random/12`)
             .then(imageResponse => imageResponse.data.message)
@@ -70,11 +73,16 @@ const App = () => {
       });
   }, []);
 
-
+  //filtering out breeds based on search filter parameters
   const filterBreed = () => {
-    return breeds.filter((breed) => {
-      return activeFilters.includes(breed);
-    });
+    if(activeFilters.length > 0){
+      return breeds.filter((breed) => {
+        return activeFilters.includes(breed);
+      });
+    }
+    else{
+      return breeds;
+    }
   };
 
   //using useEffect to filter out dog breeds based on current filters
@@ -82,34 +90,34 @@ const App = () => {
     setFilteredBreeds(filterBreed(breeds));
   }, [breeds, activeFilters])
 
-
-
+  /**
+   * Main page component, has the header, filtering functionality, and displays
+   * each dog breed. If no breed is filtered then it will display them all.
+   */
   return (
     <>
     <Header/>
     <div className="filter-area">
-      <h2>
-        Add Breed Filter!
-      </h2>
       <div className="search-area">
-        <div className="search-box"></div>
-          <input text="Search" value={query} onChange={onChange}/>
+        <div className="search-box">
+          <input type="text" text="Search" value={query} onChange={onChange}/>
           <button onClick={()=>addFilter(query)}>Add Filter</button>
         </div>
+      </div>
       <div className="dropdown">
         {breeds.filter(breed =>{
           const filterTerm = query.toLowerCase();
           return filterTerm && breed.startsWith(filterTerm) && breed != filterTerm;
         }).map(breed => 
-        <div className="dropdown-row" onClick={()=> setQuery(breed)}>
-          {breed}
+        <div className="dropdown-row" onClick={()=> setQuery(breed.toUpperCase())}>
+          {breed.toUpperCase()}
         </div>
         )}
       </div>
     </div>
       <div className="filter-pills">
         <button onClick={() => clearFilters(filteredBreeds)}>Clear Filters</button>
-        {filteredBreeds.map((breed, index) => (
+        {activeFilters.map((breed, index) => (
           <FilterPill key={index} breed={breed} handleRemove={handleRemoveFilter}/>
         ))}
       </div>

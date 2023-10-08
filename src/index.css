@@ -1,99 +1,155 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  body {
-    font-family: monospace, lucida console;
+.header {
+  display: flex;
+  align-items: center;
+  background-color: #c07218;
+  color: white;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  margin-right: auto;
+}
+
+.header img {
+  width: 60px;
+  height: 60px;
+  margin-left: 20px;
+  border-radius: 50%;
+}
+
+.dog-cards-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.breed-title {
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap; /* Enable wrapping to create rows */
+  flex-direction: row;
+  justify-content: center;
+  width: 100%; /* Occupy the full width of the parent */
+}
+
+.dog-card {
+  margin: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+
+  /* Hover effect */
+  &:hover {
+    transform: scale(1.05);
   }
 
-  .header {
-    display: flex; /* Use Flexbox */
-    align-items: center; /* Center items vertically */
-    background-color: #f49648;
-    justify-content: center;
-    text-align: center;
-    font-size: 24px;
-    color: #fff;
-    width: 100%;
-    list-style-type: none;
-    font-size: 22px;
-    border: 2px solid #333;
-    width: 85%;
-    padding: 0;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 2px 2px 2px #222;
-    border-radius: 20px;
-  }
-  
-  .header img {
-    width: 100px;
-    height: 100px;
-    margin-left: 20px; /* Adjust the margin to create space between text and image */
-  }
-
-  .dogs-container {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-  }
-  
-  .dog-card-list {
-    margin: 20px;
-  }
-  
-  .cards-container {
-    display: flex;
-  }
-  
-  .dog-card {
-    margin: 10px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-  
-    /* Hover effect */
-    &:hover {
-      transform: scale(1.05);
-    }
-  
-    img {
-      width: 375px; /* Set your desired image width */
-      height: 250px; /* Set your desired image height */
-      object-fit: cover;
-    }
+  img {
+    width: 100%; /* Ensure the image takes up 100% of the parent container */
+    height: auto;
+    object-fit: cover;
   }
 }
 
-.dropdown{
-  background-color: #eeee;
+/* CSS for buttons */
+button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* CSS for search area */
+.search-area {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+}
+
+.search-box {
+  margin-top: 25px;
+}
+
+/* CSS for dropdown */
+.dropdown {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #a9a8a8;
+  border-radius: 5px;
+  margin: 0;
+  width: 435px; /* Set a specific width for the dropdown */
+  margin: 0 auto; /* Center the dropdown horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the items vertically */
+  justify-content: center; /* Center the items horizontally */
 }
 
 .dropdown-row {
-  width: 30%;
   padding: 10px;
+  width: 95%;
   cursor: pointer;
-  background-color: #f2f2f2; /* Background color of the dropdown row */
-  color: #333; /* Text color of the dropdown row */
-  transition: background-color 0.3s ease; /* Smooth transition effect on hover */
-}
-
-.dropdown-row:hover {
-  background-color: #ddd; /* Background color on hover */
-}
-
-.filtered-pill {
-  @apply inline-flex items-center bg-gray-300 rounded-full py-1 px-3 m-1 text-sm;
   transition: background-color 0.3s ease;
 }
 
-.filtered-pill:hover {
-  @apply bg-gray-400 cursor-pointer;
+.dropdown-row:hover {
+  background-color: #d9dde2;
 }
 
-.delete-button {
-  @apply ml-2 text-red-600 font-bold;
-}
+  .filtered-pill {
+    display: inline-flex;
+    align-items: center;
+    background-color: #ccc;
+    border-radius: 999px; /* Use a large value for a circle shape */
+    padding: 0.25rem 0.75rem; /* Adjust padding as needed */
+    margin: 0.25rem;
+    font-size: 0.875rem; /* Equivalent to Tailwind's text-sm */
+    transition: background-color 0.3s ease;
+  }
+  
+  .filtered-pill:hover {
+    background-color: #870423;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
