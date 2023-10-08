@@ -17,7 +17,7 @@ function CardList({ dogs, dog_images}) {
               {
               // Checks to see if dog the breed image exists, and then maps them to an index.
               dog_images[breed] && dog_images[breed].map((image) => (
-                <div key={breed} className = "dog-card-row">
+                <div className = "dog-card-row">
                   <DogCard breed={breed} breedImage={image}/>
                 </div>
               ))}
