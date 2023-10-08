@@ -1,8 +1,8 @@
-# AboutDogChamp
+# About DogChamp
 Dog champ is a web application designed for retrieving images of dog breeds based on user search criteria.
 The logo was AI generated using Bing Image AI.
-# RUNTIME ENVIRONMENT
--Node.js
+# Runtime Environment
+- Node.js
 
 # Libraries
 - React
@@ -27,8 +27,11 @@ After that make sure you navigate to that folder in your terminal or whatever yo
 To build the web app, run the following command
 ```sh
 #make sure you are in the directory of the project!!!
+# Install project dependencies
 npm install
+# Install Axios (if it's not included in your project by default)
 npm install axios
+#Starts up dev server
 npm run dev
-##click on the little localhost that pops up or go to that link in your browser
+#click on the little localhost that pops up or go to that link in your browser
 ```

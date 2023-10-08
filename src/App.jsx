@@ -28,11 +28,13 @@ const App = () => {
     setQuery('');
   };
 
+
+  //Clearing selected filter
   const handleRemoveFilter = (breedToRemove) => {
-    // Logic to remove the breed filter from activeFilters state
     setActiveFilters(activeFilters.filter(breed => breed !== breedToRemove));
   };
   
+  //used for clearing all active filters
   const clearFilters = () => {
     setActiveFilters([]);
     setFilteredBreeds(filterBreed(breeds));
@@ -40,7 +42,7 @@ const App = () => {
   };
   
 
-  //fetching all dog breeds from dog API
+  //fetching all dog breeds from dog API using axios
   useEffect(() => {
     axios.get('https://dog.ceo/api/breeds/list/all')
       .then(response => {
@@ -55,7 +57,7 @@ const App = () => {
               return [];
             })
         );
-        // Resolve all image requests
+        // Resolve all image requests that were made
         Promise.all(imageRequests)
           .then(imagesData => {
             const imagesMap = {};
@@ -105,7 +107,9 @@ const App = () => {
         </div>
       </div>
       <div className="dropdown">
-        {breeds.filter(breed =>{
+        {
+        //filters out breed search results based on query
+        breeds.filter(breed =>{
           const filterTerm = query.toLowerCase();
           return filterTerm && breed.startsWith(filterTerm) && breed != filterTerm;
         }).map(breed => 

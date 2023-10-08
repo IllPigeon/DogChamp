@@ -1,6 +1,8 @@
 import React from 'react'
 import DogChampLogo from './assets/DogChampLogo.png'
-export default function Header() {
+
+//Logo and Title
+ function Header() {
   return (
     <div className="header">
       <h1>
@@ -10,3 +12,4 @@ export default function Header() {
     </div>
   )
 }
+export default Header;

@@ -28,46 +28,63 @@ body {
   border-radius: 50%;
 }
 
-.dog-cards-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.dogs-container{
+  background-color: #bec3c39a;
 }
 
 .breed-title {
   justify-content: center;
   text-align: center;
   width: 100%;
+  margin-top: 15px;
+  width: 50%;
+  min-width: 25%;
+  color: white;
+}
+
+.dogs-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.breed-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #333;
 }
 
 .cards-container {
   display: flex;
-  flex-wrap: wrap; /* Enable wrapping to create rows */
-  flex-direction: row;
-  justify-content: center;
-  width: 100%; /* Occupy the full width of the parent */
+  overflow-x: auto;
+  margin-bottom: 20px;
 }
 
 .dog-card {
   margin: 10px;
   border-radius: 10px;
-  overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  width: 450px;
+  height: 350px;
 
-  /* Hover effect */
   &:hover {
     transform: scale(1.05);
   }
 
   img {
-    width: 100%; /* Ensure the image takes up 100% of the parent container */
-    height: auto;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 }
 
-/* CSS for buttons */
+
+/* CSS for buttons like remove filters and add filter*/
 button {
   background-color: #4caf50;
   color: white;
@@ -88,15 +105,14 @@ button:hover {
   background-color: #45a049;
 }
 
-/* CSS for search area */
+
+/* CSS for search area & the pills for filters*/
 .search-area {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
   justify-content: center;
 }
-
-
 
 input[type="text"] {
   padding: 10px;
@@ -117,12 +133,12 @@ input[type="text"] {
   border: 1px solid #a9a8a8;
   border-radius: 5px;
   margin: 0;
-  width: 435px; /* Set a specific width for the dropdown */
-  margin: 0 auto; /* Center the dropdown horizontally */
+  width: 435px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the items vertically */
-  justify-content: center; /* Center the items horizontally */
+  align-items: center;
+  justify-content: center;
 }
 
 .dropdown-row {
@@ -136,20 +152,19 @@ input[type="text"] {
   background-color: #d9dde2;
 }
 
-  .filtered-pill {
-    display: inline-flex;
-    align-items: center;
-    background-color: #ccc;
-    border-radius: 999px; /* Use a large value for a circle shape */
-    padding: 0.25rem 0.75rem; /* Adjust padding as needed */
-    margin: 0.25rem;
-    font-size: 0.875rem; /* Equivalent to Tailwind's text-sm */
-    transition: background-color 0.3s ease;
-  }
+.filtered-pill {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ccc;
+  border-radius: 999px; /* Use a large value for a circle shape */
+  padding: 0.25rem 0.75rem; /* Adjust padding as needed */
+  margin: 0.25rem;
+  font-size: 0.875rem; /* Equivalent to Tailwind's text-sm */
+  transition: background-color 0.3s ease;
+}
   
-  .filtered-pill:hover {
-    background-color: #870423;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
+.filtered-pill:hover {
+  background-color: #870423;
+  cursor: pointer;
+  font-weight: bold;
+}
