@@ -2,8 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+
+  body {
+    font-family: monospace, lucida console;
+  }
+
   .header {
-    background-color: #
+    display: flex; /* Use Flexbox */
+    align-items: center; /* Center items vertically */
+    background-color: #f49648;
+    justify-content: center;
+    text-align: center;
+    font-size: 24px;
+    color: #fff;
+    width: 100%;
+    list-style-type: none;
+    font-size: 22px;
+    border: 2px solid #333;
+    width: 85%;
+    padding: 0;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 2px 2px 2px #222;
+    border-radius: 20px;
+  }
+  
+  .header img {
+    width: 100px;
+    height: 100px;
+    margin-left: 20px; /* Adjust the margin to create space between text and image */
   }
 
   .dogs-container {
@@ -33,9 +61,39 @@
     }
   
     img {
-      width: 350px; /* Set your desired image width */
+      width: 375px; /* Set your desired image width */
       height: 250px; /* Set your desired image height */
       object-fit: cover;
     }
   }
+}
+
+.dropdown{
+  background-color: #eeee;
+}
+
+.dropdown-row {
+  width: 30%;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #f2f2f2; /* Background color of the dropdown row */
+  color: #333; /* Text color of the dropdown row */
+  transition: background-color 0.3s ease; /* Smooth transition effect on hover */
+}
+
+.dropdown-row:hover {
+  background-color: #ddd; /* Background color on hover */
+}
+
+.filtered-pill {
+  @apply inline-flex items-center bg-gray-300 rounded-full py-1 px-3 m-1 text-sm;
+  transition: background-color 0.3s ease;
+}
+
+.filtered-pill:hover {
+  @apply bg-gray-400 cursor-pointer;
+}
+
+.delete-button {
+  @apply ml-2 text-red-600 font-bold;
 }

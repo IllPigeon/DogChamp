@@ -8,14 +8,18 @@ export default function CardList({ dogs, dog_images}) {
   return (
     <div className="dog-card-list">
         {dogs.map(breed => (
+          <>
+          <div>
+              <h3>{breed}</h3>
+          </div>
           <div className="cards-container">
-            <h3>{breed}</h3>
             <div>
               {dog_images[breed] && dog_images[breed].map((image, index) => (
                 <DogCard breed={breed} breedImage={image} index={index}/>
               ))}
             </div>
           </div>
+          </>
       ))}
     </div>
   )

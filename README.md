@@ -1,6 +1,6 @@
 # AboutDogChamp
 Dog champ is a web application designed for retrieving images of dog breeds based on user search criteria.
-
+The logo was AI generated using Bing Image AI.
 # RUNTIME MANAGER
 -Node.js
 

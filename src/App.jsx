@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import axios from 'axios';
 import CardList from './CardList';
+import FilterPill from './FilterPill';
+
 
 const App = () => {
   const [breeds, setBreeds] = useState([]);
@@ -19,6 +21,11 @@ const App = () => {
       setActiveFilters([...activeFilters, filteredBreed]);
       setFilteredBreeds(filterBreed(breeds));
     }
+  };
+
+  const handleRemoveFilter = (breedToRemove) => {
+    // Logic to remove the breed filter from activeFilters state
+    setActiveFilters(activeFilters.filter(breed => breed !== breedToRemove));
   };
   
   const clearFilters = () => {
@@ -79,9 +86,7 @@ const App = () => {
 
   return (
     <>
-    <div>
-      <Header/>
-    </div>
+    <Header/>
     <div className="filter-area">
       <h2>
         Add Breed Filter!
@@ -91,20 +96,22 @@ const App = () => {
           <input text="Search" value={query} onChange={onChange}/>
           <button onClick={()=>addFilter(query)}>Add Filter</button>
         </div>
-        <div className="dropdown">
-          {breeds.filter(breed =>{
-            const filterTerm = query.toLowerCase();
-            return filterTerm && breed.startsWith(filterTerm) && breed != filterTerm;
-          }).map(breed => 
-          <div className="dropdown-row" onClick={()=> setQuery(breed)}>
-            {breed}
-          </div>
-          )}
+      <div className="dropdown">
+        {breeds.filter(breed =>{
+          const filterTerm = query.toLowerCase();
+          return filterTerm && breed.startsWith(filterTerm) && breed != filterTerm;
+        }).map(breed => 
+        <div className="dropdown-row" onClick={()=> setQuery(breed)}>
+          {breed}
         </div>
+        )}
       </div>
+    </div>
       <div className="filter-pills">
-        <button onClick={()=>clearFilters(filteredBreeds)}>Clear Filters</button>
-        <p>Active Filters Pills</p>
+        <button onClick={() => clearFilters(filteredBreeds)}>Clear Filters</button>
+        {filteredBreeds.map((breed, index) => (
+          <FilterPill key={index} breed={breed} handleRemove={handleRemoveFilter}/>
+        ))}
       </div>
     <div className="dogs-container">
       <CardList dogs={filteredBreeds} dog_images={images}/>      
